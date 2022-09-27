@@ -3,12 +3,20 @@ package acesosadatos_tema1;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
- *
+ * Todo los derechos a Rubu.dev
  * @author Raul Raposo buzon
  */
 public class Acesosadatos_tema1 {
+    static void eliminarDirectorio(String name){
+    File f = new File(name);
+    if(f.delete())
+        System.out.println("El fichero " + name + " ha sido borrado correctamente");
+    else
+    System.out.println("El fichero " + name + " no se ha podido borrar");
+    }
     static void eliminarArchivo(String name){
     File f = new File(name);
     if (f.exists()){
@@ -18,10 +26,7 @@ public class Acesosadatos_tema1 {
     }
     }
     
-    static void listarTodo(String direcionCarpeta){
-     File f = new File(direcionCarpeta);
-    f.list();
-    }
+    
     static void creacionDir(String name){
     File f = new File(name);
     if (!f.exists()){
@@ -31,31 +36,35 @@ public class Acesosadatos_tema1 {
    static void creacionFile(String name) throws IOException{
    File f = new File(name);
     if (!f.exists()) {
+    System.out.println("Crecion de archivo completado");
     f.createNewFile();
+    }else{
+    System.err.println("Error no se podido crear el arhivo");
     }
    
    }
-   static void listarFile(String direcionCarpeta){
+   
+   static void listarTodo(String direcionCarpeta){
     File f = new File(direcionCarpeta);
     File[] listFiles = f.listFiles();
+    System.err.println("Listado de archivos :");
     for (File file : listFiles) {
         System.out.println(file);
     }
    }
     public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
         try{
-        File fileOrigen = new File("D\\pruebas.txt");
-        File fileDestino = new File("D:\\pruebas\\pruebas.txt");
+          
+          creacionFile("D:\\pruebas\\prueba.txt");
+           
+          listarTodo("D:\\pruebas\\");
         
-        creacionFile("D:\\pruebas\\prueba1.txt");
-        listarFile("D:\\pruebas");
-        creacionDir("D:\\pruebas\\raul");
-        listarFile("D:\\pruebas");
-        listarTodo("D:\\pruebas");
-        eliminarArchivo("D:\\pruebas\\prueba1.txt");
-         creacionFile("D:\\pruebas\\prueba2.txt");
         }catch(Exception e){
             e.printStackTrace();
         }
-    } 
+    }
+
+    
+    
 }
