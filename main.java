@@ -1,15 +1,41 @@
 
 package acesosadatos_tema1;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 /**
- * Todo los derechos a Rubu.dev
- * @author Raul Raposo buzon
+ * Todo los derechos reservados a rabu.dev 
+ * @author Raul Raposo Buzon
  */
 public class Acesosadatos_tema1 {
+    public static String leerFile(String filename) throws IOException { 
+        File file = new File(filename);
+        int len = (int) file.length();
+        byte[] bytes = new byte[len];
+        FileInputStream fis = null; 
+        try { 
+            fis = new FileInputStream(file);
+            assert len == fis.read(bytes); 
+        } catch (IOException e) {
+        close(fis); 
+        throw e; }
+        return new String(bytes, "UTF-8");
+    } 
+    public static void escribirFile(String filename, String text) throws IOException {
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(filename);
+            fos.write(text.getBytes("UTF-8")); 
+        } catch (IOException e) { 
+            close(fos);
+            throw e; }
+        }
+    public static void close(Closeable closeable) {
+            try { closeable.close(); } 
+            catch(IOException ignored) { } }
+
+
     static void eliminarDirectorio(String name){
     File f = new File(name);
     if(f.delete())
@@ -21,11 +47,20 @@ public class Acesosadatos_tema1 {
     File f = new File(name);
     if (f.exists()){
     f.delete();
-    }if(!f.exists()){
+    }else(!f.exists()){
     System.err.println("NO esta EL fichero que usted a puesto "+"'"+name+"'");
     }
     }
+    static void editarArchavo(String nombre,String contenido) throws IOException{
+    File archivo = new File(nombre);
+    FileWriter escribir = new FileWriter(archivo);
+    String texto = contenido;
+    for(int i=0; i<texto.length();i++){
+    escribir.write(texto.charAt(i));
+    escribir.close();
+    }
     
+    }
     
     static void creacionDir(String name){
     File f = new File(name);
@@ -55,16 +90,12 @@ public class Acesosadatos_tema1 {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         try{
-          
-          creacionFile("D:\\pruebas\\prueba.txt");
-           
-          listarTodo("D:\\pruebas\\");
-        
+         
+         
+         
+         eliminarArchivo("D:\\pruebas\\texto5.txt");
         }catch(Exception e){
             e.printStackTrace();
         }
-    }
-
-    
-    
+    } 
 }
