@@ -5,8 +5,8 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * Todo los derechos reservados a rabu.dev 
- * @author Raul Raposo Buzon
+ * Todo los derechos a Rabu.dev
+ * @author Raul Raposo buzon
  */
 public class Acesosadatos_tema1 {
     public static String leerFile(String filename) throws IOException { 
@@ -47,7 +47,7 @@ public class Acesosadatos_tema1 {
     File f = new File(name);
     if (f.exists()){
     f.delete();
-    }else(!f.exists()){
+    }if(!f.exists()){
     System.err.println("NO esta EL fichero que usted a puesto "+"'"+name+"'");
     }
     }
@@ -65,7 +65,10 @@ public class Acesosadatos_tema1 {
     static void creacionDir(String name){
     File f = new File(name);
     if (!f.exists()){
+        
     f.mkdir();
+    }else{
+    System.err.println("El archivo "+name+" ya existe");
     }
     }
    static void creacionFile(String name) throws IOException{
@@ -80,20 +83,48 @@ public class Acesosadatos_tema1 {
    }
    
    static void listarTodo(String direcionCarpeta){
+    System.err.println("Listado de archhivos y directorios :");
     File f = new File(direcionCarpeta);
-    File[] listFiles = f.listFiles();
-    System.err.println("Listado de archivos :");
-    for (File file : listFiles) {
-        System.out.println(file);
+    String[] list = f.list();
+    for (String file : list) {
+        System.out.print(file+"\n");
     }
    }
     public static void main(String[] args) throws IOException {
+        File f = new File("D:\\pruebas\\");
         Scanner sc = new Scanner(System.in);
+        String Bienvenida = "";
+        boolean paso = true;
         try{
-         
-         
-         
-         eliminarArchivo("D:\\pruebas\\texto5.txt");
+        while(paso == true){
+        System.out.print("User :");
+        String comando = sc.nextLine();
+        System.out.print("Direcion: ");
+        String parametros = sc.nextLine();
+        System.out.println("");
+        switch(comando){
+            case "exit":
+              paso = false;
+            break;
+            case "list":
+              listarTodo(parametros);
+            break;
+            case "mkdir":
+              creacionDir(parametros);
+            break;
+            case "mkfile":
+              creacionFile(parametros);
+            break;
+            case "deleteFile":
+              eliminarArchivo(parametros);
+            break;
+            case "deleteDir":
+              eliminarDirectorio(parametros);
+            break;
+        }
+        
+        }
+        
         }catch(Exception e){
             e.printStackTrace();
         }
